@@ -1,21 +1,25 @@
 pipeline {
   agent {
     docker {
-      image 'squidfunk/mkdocs-material'
-      args '-v $WORKSPACE:/docs --entrypoint bash'
+      image 'python:2.7'
+      args '-v $WORKSPACE:/docs'
     }
 
   }
   stages {
+    stage('Install') {
+      steps {
+        sh 'pip install mkdocs-material'
+      }
+    }
     stage('Build') {
       steps {
-        sh '''mkdocs build
-ls -l _site'''
+        sh 'cd /docs : mkdocs build'
       }
     }
     stage('Test') {
       steps {
-        sh 'ls -l'
+        sh 'ls -l _site'
       }
     }
   }
