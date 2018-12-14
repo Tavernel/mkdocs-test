@@ -9,9 +9,8 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh '''build
-ls -l _site
-'''
+        sh '''mkdocs build
+ls -l _site'''
       }
     }
   }
